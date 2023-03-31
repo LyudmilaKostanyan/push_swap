@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lykostan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 17:18:26 by lykostan          #+#    #+#             */
-/*   Updated: 2023/03/31 17:18:28 by lykostan         ###   ########.fr       */
+/*   Created: 2023/01/28 20:51:54 by lykostan          #+#    #+#             */
+/*   Updated: 2023/01/28 20:51:56 by lykostan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-
-# include <stdio.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include <stdlib.h>
 # include <unistd.h>
-# include <libft.h>
-# include <ft_printf.h>
+# include <stdarg.h>
 
-int		*parse(int argc, char **argv);
-void	err_mes(char *s);
-int		split_size(char **split);
-void	split_free(char **split);
-
-typedef struct s_llist
-{
-	int				content;
-	unsigned int	index;
-	struct s_llist	*next;
-	struct s_llist	*prev;
-}	t_llist;
+void	ft_putchar_pf(char c);
+int		ft_strchr_pf(const char *str, int c);
+int		ft_putnbr_pf(int n);
+int		ft_putstr_pf(char *s);
+int		ft_printf(const char *s, ...);
+size_t	ft_strlen(const char *s);
 
 #endif

@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lykostan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 17:18:26 by lykostan          #+#    #+#             */
-/*   Updated: 2023/03/31 17:18:28 by lykostan         ###   ########.fr       */
+/*   Created: 2023/01/28 20:49:44 by lykostan          #+#    #+#             */
+/*   Updated: 2023/01/28 20:49:48 by lykostan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "ft_printf.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <libft.h>
-# include <ft_printf.h>
-
-int		*parse(int argc, char **argv);
-void	err_mes(char *s);
-int		split_size(char **split);
-void	split_free(char **split);
-
-typedef struct s_llist
+void	ft_putchar_pf(char c)
 {
-	int				content;
-	unsigned int	index;
-	struct s_llist	*next;
-	struct s_llist	*prev;
-}	t_llist;
-
-#endif
+	write(1, &c, 1);
+}

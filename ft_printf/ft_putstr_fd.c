@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lykostan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 17:18:26 by lykostan          #+#    #+#             */
-/*   Updated: 2023/03/31 17:18:28 by lykostan         ###   ########.fr       */
+/*   Created: 2023/01/28 20:50:12 by lykostan          #+#    #+#             */
+/*   Updated: 2023/01/28 20:50:14 by lykostan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "ft_printf.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <libft.h>
-# include <ft_printf.h>
-
-int		*parse(int argc, char **argv);
-void	err_mes(char *s);
-int		split_size(char **split);
-void	split_free(char **split);
-
-typedef struct s_llist
+int	ft_putstr_pf(char *s)
 {
-	int				content;
-	unsigned int	index;
-	struct s_llist	*next;
-	struct s_llist	*prev;
-}	t_llist;
+	int		size;
+	int		i;
+	char	*s1;
 
-#endif
+	s1 = "(null)";
+	i = -1;
+	if (s == NULL)
+		while (++i < 6)
+			write(1, &s1[i], 1);
+	else
+	{
+		size = ft_strlen(s);
+		while (++i < size)
+			write(1, &s[i], 1);
+	}
+	return (i);
+}

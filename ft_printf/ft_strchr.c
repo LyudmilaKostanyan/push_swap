@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lykostan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 17:18:26 by lykostan          #+#    #+#             */
-/*   Updated: 2023/03/31 17:18:28 by lykostan         ###   ########.fr       */
+/*   Created: 2023/01/28 20:50:28 by lykostan          #+#    #+#             */
+/*   Updated: 2023/01/28 20:50:29 by lykostan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "ft_printf.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <libft.h>
-# include <ft_printf.h>
-
-int		*parse(int argc, char **argv);
-void	err_mes(char *s);
-int		split_size(char **split);
-void	split_free(char **split);
-
-typedef struct s_llist
+int	ft_strchr_pf(const char *str, int c)
 {
-	int				content;
-	unsigned int	index;
-	struct s_llist	*next;
-	struct s_llist	*prev;
-}	t_llist;
+	int	i;
 
-#endif
+	i = -1;
+	c %= 256;
+	if (c == 0)
+		return (ft_strlen(str) - 1);
+	while (str[++i])
+		if (str[i] == c)
+			return (i);
+	return (-1);
+}

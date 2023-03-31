@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lykostan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 17:18:26 by lykostan          #+#    #+#             */
-/*   Updated: 2023/03/31 17:18:28 by lykostan         ###   ########.fr       */
+/*   Created: 2023/01/28 20:49:54 by lykostan          #+#    #+#             */
+/*   Updated: 2023/01/28 20:49:56 by lykostan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "ft_printf.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <libft.h>
-# include <ft_printf.h>
-
-int		*parse(int argc, char **argv);
-void	err_mes(char *s);
-int		split_size(char **split);
-void	split_free(char **split);
-
-typedef struct s_llist
+int	ft_putnbr_pf(int n)
 {
-	int				content;
-	unsigned int	index;
-	struct s_llist	*next;
-	struct s_llist	*prev;
-}	t_llist;
+	long	nb;
+	int		count;
 
-#endif
+	count = 0;
+	nb = n;
+	if (nb < 0)
+	{
+		write(1, "-", 1);
+		nb = -nb;
+		count++;
+	}
+	if (nb > 9)
+		count += ft_putnbr_pf(nb / 10);
+	nb = nb % 10 + 48;
+	count++;
+	write(1, &nb, 1);
+	return (count);
+}
