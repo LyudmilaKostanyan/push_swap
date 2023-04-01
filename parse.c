@@ -40,9 +40,8 @@ int long	at(const char *str, long *k)
 	return (m);
 }
 
-int	*ft_atol(char **split)
+int	*ft_atol(char **split, int *len)
 {
-	int		j;
 	long	k;
 	int		m;
 	int		*args;
@@ -50,7 +49,6 @@ int	*ft_atol(char **split)
 	args = (int *)malloc(sizeof(int) * split_size(split));
 	if (args == NULL)
 		err_mes("Malloc error");
-	j = 0;
 	while (*split)
 	{
 		k = 0;
@@ -59,9 +57,9 @@ int	*ft_atol(char **split)
 			err_mes("Too long arg");
 		if (m != 0)
 			k = -k;
-		args[j] = (int)k;
+		args[*len] = (int)k;
 		split++;
-		j++;
+		(*len)++;
 	}
 	return (args);
 }
@@ -98,29 +96,27 @@ char	*parse_args(int argc, char **argv)
 	return (s);
 }
 
-int	*parse(int argc, char **argv)
+int	*parse(int argc, char **argv, int *len)
 {
 	char	*s;
 	char	**split;
 	int		*args;
 
-	if (argc == 1)
-		err_mes("Args error");
 	s = parse_args(argc, argv);
 	split = ft_split(s, ' ');
 	free(s);
 	if (split == NULL)
 		err_mes("Malloc error");
-	args = ft_atol(split);
+	args = ft_atol(split, len);
 	split_free(split);
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < argc - 1)
+	while (++i < *len)
 	{
 		j = -1;
-		while (++j < argc - 1)
+		while (++j < *len)
 			if (args[i] == args[j] && i != j)
 				err_mes("Identical numbers in args");
 	}

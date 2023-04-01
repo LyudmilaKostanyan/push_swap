@@ -12,58 +12,134 @@
 
 #include "push_swap.h"
 
-t_llist	*list_creat(int argc, int *args)
+void	for_3(t_llist *a)
 {
-	int		i;
-	t_llist	*head;
-	t_llist	*list;
-
-	i = -1;
-	head = malloc(sizeof(t_llist));
-	list = head;
-	if (head == NULL)
-		err_mes("Malloc error");
-	while (++i < argc - 1)
+	if (a->content < a->next->next->content)
 	{
-		if (i == 0)
-			head->prev = NULL;
-		head->content = args[i];
-		if (i == argc - 2)
-			head->next = NULL;
+		if (a->next->content > a->next->next->content)
+		{
+			rra(a, 'a');
+			sa(a, 'a');
+		}
+		else if (a->content > a->next->content)
+			sa(a, 'a');
+	}
+	else
+	{
+		if (a->content < a->next->content)
+			rra(a, 'a');
+		else if(a->next->content < a->next->next->content)
+			ra(a, 'a');
 		else
 		{
-			head->next = malloc(sizeof(t_llist));
-			if (head == NULL)
-				err_mes("Malloc error");
-			head->next->prev = head;
+			sa(a, 'a');
+			rra(a, 'a');
 		}
-		head = head->next;
 	}
-	return (list);
 }
 
-// void	merge(int *args, int start, int end)
-// {
-// 	int	mid;
+void	normal(t_llist **head)
+{
+	t_llist	*tmp;
 
-// 	mid = (end - start) / 2;
-// 	if (start < end)
-// 	{
-// 		merge(args, 0, mid);
-// 		merge(args, mid + 1, end);
-// 	}
+	tmp = head;
+	while (tmp)
+	{
+		if ()
+	}
+}
 
-// }
+void	for_less_13(t_llist *a, t_llist *b, t_llist *tmp_l, int len_stat)
+{
+	int	tmp;
+
+	tmp = a->content;
+	if (i < len_stat / 2)
+		while (tmp != tmp_l->content)
+			ra(tmp_l, 'a');
+	else
+		while (tmp != tmp_l->content)
+			rra(tmp_l, 'a');
+	pa(&b, &tmp_l, 'b');
+}
+
+void	less_13(t_llist *a, t_llist *b, int len)
+{
+	int		i;
+	int		len_stat;
+	t_llist	*tmp_l;
+	int		tmp;
+
+	i = 0;
+	len_stat = len;
+	while (len > 3)
+	{
+		tmp_l = a;
+		while (a)
+		{
+			if (a->index == i)
+			{
+				tmp = a->content;
+				if (i < len_stat / 2)
+					while (tmp != tmp_l->content)
+						ra(tmp_l, 'a');
+				else
+					while (tmp != tmp_l->content)
+						rra(tmp_l, 'a');
+				pa(&b, &tmp_l, 'b');
+				break;
+			}
+			a = a->next;
+		}
+		a = tmp_l;
+		len--;
+		i++;
+	}
+	for_3(a);
+	while (len != len_stat)
+	{
+		pa(&a, &b, 'a');
+		len++;
+	}
+}
 
 int	main(int argc, char **argv)
 {
-	t_llist	*list;
-	int	*args;
+	t_llist	*a;
+	t_llist	*b;
+	int		*args;
+	int		len;
 
-	args = parse(argc, argv);
-	// merge(args, 0, argc - 1);
-	list = list_creat(argc, args);
+	if (argc < 2)
+		return (0);
+	len = 0;
+	args = parse(argc, argv, &len);
+	if (len < 3)
+		return (0);
+	a = list_creat(args, len, 'a');
+	b = list_creat(args, len, 'b');
+	if (len == 3)
+	{
+		for_3(a);
+		return (0);
+	}
+	merge(args, 0, len - 1);
+	indexing(a, args, len);
+	if (len < 13)
+	{
+		less_13(a, b, len);
+		// b = a;
+		return (0);
+	}
+	// a = b;
+	// printf("\n\n\n");
+	// rra(a, 'a');
+	// while (a)
+	// {
+	// 	printf("%d\n", a->content);
+	// 	a = a->next;
+	// }
 	free(args);
-	// system("leaks push_swap");
+	system("leaks push_swap");
 	return (0);
 }

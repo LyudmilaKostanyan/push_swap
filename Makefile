@@ -5,7 +5,10 @@ IFLAGS = -I./libft -I./ft_printf
 LFLAGS = -L./libft -lft -L./ft_printf -lftprintf
 FILES = main.c \
 		parse.c \
-		parse_utils.c
+		parse_utils.c \
+		merge.c \
+		cmds_spr.c \
+		for_list.c
 OBJS = $(FILES:.c=.o)
 
 %.o: %.c
