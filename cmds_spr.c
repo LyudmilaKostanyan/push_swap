@@ -28,18 +28,25 @@ void	pa(t_llist **in, t_llist **out, char c)
 {
 	t_llist	*list;
 
+	if (!*out)
+		return ;
 	list = malloc(sizeof(t_llist));
 	if (list == NULL)
 		err_mes("Malloc error");
 	list->content = (*out)->content;
 	list->index = (*out)->index;
-	list->next = *in;
+	if (*in)
+		list->next = *in;
+	else
+		list->next = NULL;
 	list->prev = NULL;
-	(*in)->prev = list;
+	if (*in)
+		(*in)->prev = list;
 	*in = list;
 	list = *out;
 	*out = (*out)->next;
-	(*out)->prev = NULL;
+	if (*out)
+		(*out)->prev = NULL;
 	free(list);
 	if (c == 'a')
 		ft_printf("pa\n");
@@ -53,6 +60,8 @@ void	ra(t_llist *list, char c)
 	int		tmp;
 	int		tmp_i;
 
+	if (!list || !list->next)
+		return ;
 	t = list;
 	tmp = list->content;
 	tmp_i = list->index;

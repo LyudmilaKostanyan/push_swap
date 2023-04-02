@@ -21,7 +21,7 @@
 
 typedef struct s_llist
 {
-	int	index;
+	int				index;
 	int				content;
 	struct s_llist	*next;
 	struct s_llist	*prev;

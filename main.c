@@ -28,7 +28,7 @@ void	for_3(t_llist *a)
 	{
 		if (a->content < a->next->content)
 			rra(a, 'a');
-		else if(a->next->content < a->next->next->content)
+		else if (a->next->content < a->next->next->content)
 			ra(a, 'a');
 		else
 		{
@@ -38,60 +38,41 @@ void	for_3(t_llist *a)
 	}
 }
 
-void	normal(t_llist **head)
+void	for_less_13(t_llist **a, t_llist **b, int i, int len_stat)
 {
-	t_llist	*tmp;
+	int		tmp;
+	t_llist	*tmp_l;
 
-	tmp = head;
-	while (tmp)
+	tmp_l = *a;
+	while (*a)
 	{
-		if ()
+		if ((*a)->index == i)
+		{
+			tmp = (*a)->content;
+			if (i < len_stat / 2)
+				while (tmp != tmp_l->content)
+					ra(tmp_l, 'a');
+			else
+				while (tmp != tmp_l->content)
+					rra(tmp_l, 'a');
+			pa(b, &tmp_l, 'b');
+			break ;
+		}
+		*a = (*a)->next;
 	}
-}
-
-void	for_less_13(t_llist *a, t_llist *b, t_llist *tmp_l, int len_stat)
-{
-	int	tmp;
-
-	tmp = a->content;
-	if (i < len_stat / 2)
-		while (tmp != tmp_l->content)
-			ra(tmp_l, 'a');
-	else
-		while (tmp != tmp_l->content)
-			rra(tmp_l, 'a');
-	pa(&b, &tmp_l, 'b');
+	*a = tmp_l;
 }
 
 void	less_13(t_llist *a, t_llist *b, int len)
 {
 	int		i;
 	int		len_stat;
-	t_llist	*tmp_l;
-	int		tmp;
 
 	i = 0;
 	len_stat = len;
 	while (len > 3)
 	{
-		tmp_l = a;
-		while (a)
-		{
-			if (a->index == i)
-			{
-				tmp = a->content;
-				if (i < len_stat / 2)
-					while (tmp != tmp_l->content)
-						ra(tmp_l, 'a');
-				else
-					while (tmp != tmp_l->content)
-						rra(tmp_l, 'a');
-				pa(&b, &tmp_l, 'b');
-				break;
-			}
-			a = a->next;
-		}
-		a = tmp_l;
+		for_less_13(&a, &b, i, len_stat);
 		len--;
 		i++;
 	}
@@ -101,6 +82,116 @@ void	less_13(t_llist *a, t_llist *b, int len)
 		pa(&a, &b, 'a');
 		len++;
 	}
+}
+
+int	check(t_llist *a)
+{
+	t_llist	*tmp;
+
+	tmp = a;
+	a = a->next;
+	while (a)
+	{
+		if (a->content < a->prev->content)
+		{
+			a = tmp;
+			return (0);
+		}
+		a = a->next;
+	}
+	a = tmp;
+	return (1);
+}
+
+int	ft_sqrt(int nb)
+{
+	int	i;
+
+	i = 3;
+	while (i * i < nb)
+		i++;
+	if (i * i == nb)
+		return (i);
+	return (i - 1);
+}
+
+int	ft_log(int nb)
+{
+	int	i;
+
+	i = 0;
+	while (nb)
+	{
+		nb /= 2;
+		i++;
+	}
+	return (i - 1);
+}
+
+void	end(t_llist *a, t_llist *b, int len, int * args)
+{
+	int		i;
+	int		j;
+	t_llist	*tmp_l;;
+	int		tmp;
+
+	(void)a;
+	tmp_l = b;
+	indexing(b, args, len);
+	i = len - 1;
+	j = 0;
+	while (i >= 0)
+	{
+		if (b->index == i)
+		{
+			tmp = b->content;
+			if (j < len / 2)
+				while (tmp_l->content != tmp)
+					ra(tmp_l, 'b');
+			else
+				while (tmp_l->content != tmp)
+					rra(tmp_l, 'b');
+			// pa(a, b, 'a');
+			i--;
+			b = tmp_l;
+		}
+		else
+		{
+			j++;
+			b = b->next;
+		}
+	}
+	while (b)
+	{
+		printf("%d\n", b->content);
+		b = b->next;
+	}
+}
+
+void	butterfly(t_llist *a, t_llist *b, int len, int *args)
+{
+	int	opt;
+	int	i;
+
+	i = 0;
+	opt = ft_sqrt(len) + ft_log(len) - 1;
+	while (i < len)
+	{
+		if (a->index <= i)
+		{
+			pa(&b, &a, 'b');
+			ra(b, 'b');
+			i++;
+		}
+		else if (a->index <= i + opt)
+		{
+			pa(&b, &a, 'b');
+			i++;
+		}
+		else
+			ra(a, 'a');
+	}
+	end(a, b, len, args);
 }
 
 int	main(int argc, char **argv)
@@ -114,10 +205,10 @@ int	main(int argc, char **argv)
 		return (0);
 	len = 0;
 	args = parse(argc, argv, &len);
-	if (len < 3)
-		return (0);
 	a = list_creat(args, len, 'a');
-	b = list_creat(args, len, 'b');
+	b = NULL; //list_creat(args, len, 'b');
+	if (len < 3 || check(a))
+		return (0);
 	if (len == 3)
 	{
 		for_3(a);
@@ -128,18 +219,10 @@ int	main(int argc, char **argv)
 	if (len < 13)
 	{
 		less_13(a, b, len);
-		// b = a;
 		return (0);
 	}
-	// a = b;
-	// printf("\n\n\n");
-	// rra(a, 'a');
-	// while (a)
-	// {
-	// 	printf("%d\n", a->content);
-	// 	a = a->next;
-	// }
+	butterfly(a, b, len, args);
 	free(args);
-	system("leaks push_swap");
+	// system("leaks push_swap");
 	return (0);
 }
