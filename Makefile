@@ -8,7 +8,11 @@ FILES = main.c \
 		parse_utils.c \
 		merge.c \
 		cmds_spr.c \
-		for_list.c
+		for_list.c \
+		from_3_to_13.c \
+		butterfly.c \
+		butterfly_utils.c
+
 OBJS = $(FILES:.c=.o)
 
 %.o: %.c

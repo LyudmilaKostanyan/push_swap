@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmds_spr.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lykostan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/03 20:58:21 by lykostan          #+#    #+#             */
+/*   Updated: 2023/04/03 20:58:24 by lykostan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	ps_swap(t_llist *list, char c)
@@ -24,6 +36,7 @@ void	ss(t_llist *a, t_llist *b)
 	ft_printf("ss\n");
 }
 
+//norm
 void	ps_push(t_llist **in, t_llist **out, char c)
 {
 	t_llist	*list;

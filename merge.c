@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   merge.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lykostan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/03 21:00:20 by lykostan          #+#    #+#             */
+/*   Updated: 2023/04/03 21:00:24 by lykostan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
+//nrom
 void	merge_sorted(int *args, int start, int mid, int end)
 {
 	int	i;
@@ -33,7 +46,6 @@ void	merge_sorted(int *args, int start, int mid, int end)
 void	merge(int *args, int start, int end)
 {
 	int	mid;
-	// static int	i;
 
 	mid = (start + end) / 2;
 	if (start < end)
@@ -41,7 +53,5 @@ void	merge(int *args, int start, int end)
 		merge(args, 0, mid);
 		merge(args, mid + 1, end);
 		merge_sorted(args, start, mid, end);
-		// printf("%d\n", i);
-		// i++;
 	}
 }
