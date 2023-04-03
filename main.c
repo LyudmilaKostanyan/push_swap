@@ -136,36 +136,36 @@ void	end(t_llist *a, t_llist *b, int len, int * args)
 	int		tmp;
 
 	(void)a;
-	tmp_l = b;
 	indexing(b, args, len);
+	tmp_l = b;
 	i = len - 1;
 	j = 0;
 	while (i >= 0)
 	{
-		if (b->index == i)
+		if (tmp_l->index == i)
 		{
-			tmp = b->content;
+			tmp = tmp_l->content;
 			if (j < len / 2)
-				while (tmp_l->content != tmp)
-					ra(tmp_l, 'b');
+				while (b->content != tmp)
+					ra(b, 'b');
 			else
-				while (tmp_l->content != tmp)
-					rra(tmp_l, 'b');
-			// pa(a, b, 'a');
+				while (b->content != tmp)
+					rra(b, 'b');
+			pa(&a, &b, 'a');
 			i--;
-			b = tmp_l;
+			tmp_l = b;
 		}
 		else
 		{
 			j++;
-			b = b->next;
+			tmp_l = tmp_l->next;
 		}
 	}
-	while (b)
-	{
-		printf("%d\n", b->content);
-		b = b->next;
-	}
+	// while (a)
+	// {
+	// 	printf("%d\n", a->content);
+	// 	a = a->next;
+	// }
 }
 
 void	butterfly(t_llist *a, t_llist *b, int len, int *args)
@@ -206,7 +206,7 @@ int	main(int argc, char **argv)
 	len = 0;
 	args = parse(argc, argv, &len);
 	a = list_creat(args, len, 'a');
-	b = NULL; //list_creat(args, len, 'b');
+	b = NULL;
 	if (len < 3 || check(a))
 		return (0);
 	if (len == 3)
@@ -223,6 +223,6 @@ int	main(int argc, char **argv)
 	}
 	butterfly(a, b, len, args);
 	free(args);
-	// system("leaks push_swap");
+	system("leaks push_swap");
 	return (0);
 }
