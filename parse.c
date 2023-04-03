@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int long	at(const char *str, long *k)
+int long	num_creat(const char *str, long *k)
 {
 	int		i;
 	int		m;
@@ -52,7 +52,7 @@ int	*ft_atol(char **split, int *len)
 	while (*split)
 	{
 		k = 0;
-		m = at(*split, &k);
+		m = num_creat(*split, &k);
 		if ((k > 2147483647 && m == 0) || (k > 2147483648 && m != 0))
 			err_mes("Too long arg");
 		if (m != 0)
@@ -64,12 +64,38 @@ int	*ft_atol(char **split, int *len)
 	return (args);
 }
 
-char	*parse_args(int argc, char **argv)
+int	*stoi(char *s, int *len)
+{
+	int		i;
+	int		s_len;
+	char	**split;
+	int		*args;
+
+	i = -1;
+	s_len = ft_strlen(s);
+	while (++i < s_len)
+	{
+		if (s[i] != '+' && s[i] != '-' && s[i] != '\t'
+			&& s[i] != '\n' && s[i] != ' ' && !ft_isdigit(s[i]))
+			err_mes("Other simbols");
+		else if (s[i] == '\t' || s[i] == '\n')
+			s[i] = ' ';
+	}
+	split = ft_split(s, ' ');
+	free(s);
+	if (split == NULL)
+		err_mes("Malloc error");
+	args = ft_atol(split, len);
+	split_free(split);
+	return (args);
+}
+
+int	*parse_args(int argc, char **argv, int *len)
 {
 	int		i;
 	char	*s;
 	char	*str;
-	int		len;
+	int		*args;
 
 	s = "";
 	i = 0;
@@ -83,35 +109,17 @@ char	*parse_args(int argc, char **argv)
 		s = ft_strjoin(s, " ");
 		free(str);
 	}
-	i = -1;
-	len = ft_strlen(s);
-	while (++i < len)
-	{
-		if (s[i] != '+' && s[i] != '-' && s[i] != '\t'
-			&& s[i] != '\n' && s[i] != ' ' && !ft_isdigit(s[i]))
-			err_mes("Other simbols");
-		else if (s[i] == '\t' || s[i] == '\n')
-			s[i] = ' ';
-	}
-	return (s);
+	args = stoi(s, len);
+	return (args);
 }
 
 int	*parse(int argc, char **argv, int *len)
 {
-	char	*s;
-	char	**split;
-	int		*args;
-
-	s = parse_args(argc, argv);
-	split = ft_split(s, ' ');
-	free(s);
-	if (split == NULL)
-		err_mes("Malloc error");
-	args = ft_atol(split, len);
-	split_free(split);
+	int	*args;
 	int	i;
 	int	j;
 
+	args = parse_args(argc, argv, len);
 	i = -1;
 	while (++i < *len)
 	{

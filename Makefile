@@ -17,7 +17,7 @@ OBJS = $(FILES:.c=.o)
 all: lib ftprintf $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LFLAGS) -o $(NAME)
+	$(CC) -g -fsanitize=address $(OBJS) $(LFLAGS) -o $(NAME)
 
 lib:
 	cd libft && make

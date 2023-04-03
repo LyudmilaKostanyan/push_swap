@@ -18,22 +18,22 @@ void	for_3(t_llist *a)
 	{
 		if (a->next->content > a->next->next->content)
 		{
-			rra(a, 'a');
-			sa(a, 'a');
+			ps_rrotate(a, 'a');
+			ps_swap(a, 'a');
 		}
 		else if (a->content > a->next->content)
-			sa(a, 'a');
+			ps_swap(a, 'a');
 	}
 	else
 	{
 		if (a->content < a->next->content)
-			rra(a, 'a');
+			ps_rrotate(a, 'a');
 		else if (a->next->content < a->next->next->content)
-			ra(a, 'a');
+			ps_rotate(a, 'a');
 		else
 		{
-			sa(a, 'a');
-			rra(a, 'a');
+			ps_swap(a, 'a');
+			ps_rrotate(a, 'a');
 		}
 	}
 }
@@ -51,11 +51,11 @@ void	for_less_13(t_llist **a, t_llist **b, int i, int len_stat)
 			tmp = (*a)->content;
 			if (i < len_stat / 2)
 				while (tmp != tmp_l->content)
-					ra(tmp_l, 'a');
+					ps_rotate(tmp_l, 'a');
 			else
 				while (tmp != tmp_l->content)
-					rra(tmp_l, 'a');
-			pa(b, &tmp_l, 'b');
+					ps_rrotate(tmp_l, 'a');
+			ps_push(b, &tmp_l, 'b');
 			break ;
 		}
 		*a = (*a)->next;
@@ -79,7 +79,7 @@ void	less_13(t_llist *a, t_llist *b, int len)
 	for_3(a);
 	while (len != len_stat)
 	{
-		pa(&a, &b, 'a');
+		ps_push(&a, &b, 'a');
 		len++;
 	}
 }
@@ -110,8 +110,6 @@ int	ft_sqrt(int nb)
 	i = 3;
 	while (i * i < nb)
 		i++;
-	if (i * i == nb)
-		return (i);
 	return (i - 1);
 }
 
@@ -125,47 +123,49 @@ int	ft_log(int nb)
 		nb /= 2;
 		i++;
 	}
-	return (i - 1);
+	return (i);
 }
 
-void	end(t_llist *a, t_llist *b, int len, int * args)
+int	lstsize(t_llist *b)
 {
-	int		i;
-	int		j;
-	t_llist	*tmp_l;;
-	int		tmp;
+	int	i;
 
-	(void)a;
-	indexing(b, args, len);
-	tmp_l = b;
-	i = len - 1;
-	j = 0;
-	while (i >= 0)
+	i = 0;
+	while (b)
 	{
-		if (tmp_l->index == i)
-		{
-			tmp = tmp_l->content;
-			if (j < len / 2)
-				while (b->content != tmp)
-					ra(b, 'b');
-			else
-				while (b->content != tmp)
-					rra(b, 'b');
-			pa(&a, &b, 'a');
-			i--;
-			tmp_l = b;
-		}
-		else
-		{
-			j++;
-			tmp_l = tmp_l->next;
-		}
+		i++;
+		b = b->next;
 	}
-	// while (a)
-	// {
-	// 	printf("%d\n", a->content);
-	// 	a = a->next;
-	// }
+	return (i);
+}
+
+void	f(int i, int max, t_llist *b)
+{
+	if (i < lstsize(b) / 2)
+		while (max != b->content)
+			ps_rotate(b, 'b');
+	else
+		while (max != b->content)
+			ps_rrotate(b, 'b');
+}
+
+void	end(t_llist *b, int len, int * args, int i)
+{
+	int		max;
+	int	j;
+	t_llist	*tmp;
+
+	j = 0;
+	indexing(b, args, len);
+	tmp = b;
+	while (b->index != i)
+	{
+		j++;
+		b = b->next;
+	}
+	max = b->content;
+	b = tmp;
+	f(j, max, b);
 }
 
 void	butterfly(t_llist *a, t_llist *b, int len, int *args)
@@ -179,19 +179,49 @@ void	butterfly(t_llist *a, t_llist *b, int len, int *args)
 	{
 		if (a->index <= i)
 		{
-			pa(&b, &a, 'b');
-			ra(b, 'b');
+			ps_push(&b, &a, 'b');
+			ps_rotate(b, 'b');
 			i++;
 		}
 		else if (a->index <= i + opt)
 		{
-			pa(&b, &a, 'b');
+			ps_push(&b, &a, 'b');
 			i++;
 		}
 		else
-			ra(a, 'a');
+			ps_rotate(a, 'a');
 	}
-	end(a, b, len, args);
+	i = len - 1;
+	while (b)
+	{
+		end(b, len, args, i);
+		ps_push(&a, &b, 'a');
+		i--;
+	}
+}
+
+void	bubble(int *args, int len)
+{
+	int i;
+	int j;
+	int tmp;
+
+	i = 0;
+	while (i < len)
+	{
+		j = 0;
+		while (j < len - i - 1)
+		{
+			if (args[j + 1] < args[j])
+			{
+				tmp = args[j];
+				args[j] = args[j + 1];
+				args[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -207,22 +237,23 @@ int	main(int argc, char **argv)
 	args = parse(argc, argv, &len);
 	a = list_creat(args, len, 'a');
 	b = NULL;
-	if (len < 3 || check(a))
-		return (0);
-	if (len == 3)
-	{
-		for_3(a);
-		return (0);
-	}
-	merge(args, 0, len - 1);
+	bubble(args, len);
+	// merge(args, 0, len - 1);
 	indexing(a, args, len);
-	if (len < 13)
-	{
-		less_13(a, b, len);
+	if (len < 2 || check(a))
 		return (0);
+	else if (len == 2)
+	{
+		if (a->content > a->next->content)
+			ps_swap(a, 'a');
 	}
-	butterfly(a, b, len, args);
-	free(args);
-	system("leaks push_swap");
+	else if (len == 3)
+		for_3(a);
+	else if (len < 13)
+		less_13(a, b, len);
+	else
+		butterfly(a, b, len, args);
+	free(args); //need free list a;
+	// system("leaks push_swap");
 	return (0);
 }

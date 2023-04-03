@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	sa(t_llist *list, char c)
+void	ps_swap(t_llist *list, char c)
 {
 	int	tmp;
 	int	tmp_i;
@@ -19,12 +19,12 @@ void	sa(t_llist *list, char c)
 
 void	ss(t_llist *a, t_llist *b)
 {
-	sa(a, 0);
-	sa(b, 0);
+	ps_swap(a, 0);
+	ps_swap(b, 0);
 	ft_printf("ss\n");
 }
 
-void	pa(t_llist **in, t_llist **out, char c)
+void	ps_push(t_llist **in, t_llist **out, char c)
 {
 	t_llist	*list;
 
@@ -54,7 +54,7 @@ void	pa(t_llist **in, t_llist **out, char c)
 		ft_printf("pb\n");
 }
 
-void	ra(t_llist *list, char c)
+void	ps_rotate(t_llist *list, char c)
 {
 	t_llist	*t;
 	int		tmp;
@@ -82,6 +82,6 @@ void	ra(t_llist *list, char c)
 
 void	rr(t_llist *a, t_llist *b)
 {
-	ra(a, 0);
-	ra(b, 0);
+	ps_rotate(a, 0);
+	ps_rotate(b, 0);
 }

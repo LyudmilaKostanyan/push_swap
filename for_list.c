@@ -45,7 +45,7 @@ void	indexing(t_llist *a, int *args, int len)
 	}
 }
 
-void	rra(t_llist *list, char c)
+void	ps_rrotate(t_llist *list, char c)
 {
 	int	tmp;
 	int	tmp_i;
@@ -70,6 +70,6 @@ void	rra(t_llist *list, char c)
 
 void	rrr(t_llist *a, t_llist *b)
 {
-	rra(a, 0);
-	rra(b, 0);
+	ps_rrotate(a, 0);
+	ps_rrotate(b, 0);
 }

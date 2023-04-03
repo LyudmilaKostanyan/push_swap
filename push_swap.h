@@ -35,12 +35,12 @@ void	merge_sorted(int *args, int start, int mid, int end);
 void	merge(int *args, int start, int end);
 t_llist	*list_creat(int *args, int len, char c);
 void	indexing(t_llist *a, int *args, int len);
-void	sa(t_llist *list, char c);
+void	ps_swap(t_llist *list, char c);
 void	ss(t_llist *a, t_llist *b);
-void	pa(t_llist **in, t_llist **out, char c);
-void	ra(t_llist *list, char c);
+void	ps_push(t_llist **in, t_llist **out, char c);
+void	ps_rotate(t_llist *list, char c);
 void	rr(t_llist *a, t_llist *b);
-void	rra(t_llist *list, char c);
+void	ps_rrotate(t_llist *list, char c);
 void	rrr(t_llist *a, t_llist *b);
 
 #endif
