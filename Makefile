@@ -7,7 +7,7 @@ FILES = main.c \
 		parse.c \
 		parse_utils.c \
 		merge.c \
-		cmds_spr.c \
+		rotates.c \
 		for_list.c \
 		from_3_to_13.c \
 		butterfly.c \
@@ -21,7 +21,7 @@ OBJS = $(FILES:.c=.o)
 all: lib ftprintf $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -g -fsanitize=address $(OBJS) $(LFLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(LFLAGS) -o $(NAME)
 
 lib:
 	cd libft && make

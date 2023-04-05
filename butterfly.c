@@ -12,36 +12,35 @@
 
 #include "push_swap.h"
 
-void	raise(int i, int max, t_llist *b)
+void	raise(int i, int max, t_llist **b)
 {
-	if (i < lstsize(b) / 2)
-		while (max != b->content)
+	if (i < lstsize(*b) / 2)
+		while (max != (*b)->content)
 			ps_rotate(b, 'b');
 	else
-		while (max != b->content)
+		while (max != (*b)->content)
 			ps_rrotate(b, 'b');
 }
 
-void	push_a(t_llist *b, int len, int *args, int i)
+void	push_a(t_llist **b, int len, int *args, int i)
 {
 	int		max;
 	int		j;
 	t_llist	*tmp;
 
 	j = 0;
-	indexing(b, args, len);
-	tmp = b;
-	while (b->index != i)
+	indexing(*b, args, len);
+	tmp = *b;
+	while ((*b)->index != i)
 	{
 		j++;
-		b = b->next;
+		*b = (*b)->next;
 	}
-	max = b->content;
-	b = tmp;
+	max = (*b)->content;
+	*b = tmp;
 	raise(j, max, b);
 }
 
-//norm
 void	butterfly(t_llist *a, t_llist *b, int len, int *args)
 {
 	int	opt;
@@ -54,7 +53,7 @@ void	butterfly(t_llist *a, t_llist *b, int len, int *args)
 		if (a->index <= i)
 		{
 			ps_push(&b, &a, 'b');
-			ps_rotate(b, 'b');
+			ps_rotate(&b, 'b');
 			i++;
 		}
 		else if (a->index <= i + opt)
@@ -63,13 +62,12 @@ void	butterfly(t_llist *a, t_llist *b, int len, int *args)
 			i++;
 		}
 		else
-			ps_rotate(a, 'a');
+			ps_rotate(&a, 'a');
 	}
 	i = len - 1;
 	while (b)
 	{
-		push_a(b, len, args, i);
+		push_a(&b, len, args, i--);
 		ps_push(&a, &b, 'a');
-		i--;
 	}
 }

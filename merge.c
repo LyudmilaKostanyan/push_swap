@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-//nrom
 void	merge_sorted(int *args, int start, int mid, int end)
 {
 	int	i;
@@ -21,18 +20,15 @@ void	merge_sorted(int *args, int start, int mid, int end)
 	int	*tmp;
 
 	tmp = (int *)malloc(sizeof(int) * end + 1);
-	if (tmp == NULL)
-		err_mes("Malloc error");
+	err_mes("Malloc error", tmp == NULL);
 	i = start;
 	k = start;
 	j = mid + 1;
 	while (i <= mid && j <= end)
-	{
 		if (args[i] < args[j])
 			tmp[k++] = args[i++];
-		else
-			tmp[k++] = args[j++];
-	}
+	else
+		tmp[k++] = args[j++];
 	while (i <= mid)
 		tmp[k++] = args[i++];
 	while (j <= end)
@@ -47,10 +43,10 @@ void	merge(int *args, int start, int end)
 {
 	int	mid;
 
-	mid = (start + end) / 2;
 	if (start < end)
 	{
-		merge(args, 0, mid);
+		mid = (start + end) / 2;
+		merge(args, start, mid);
 		merge(args, mid + 1, end);
 		merge_sorted(args, start, mid, end);
 	}

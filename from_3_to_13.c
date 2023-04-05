@@ -37,7 +37,7 @@ void	for_3(t_llist *a)
 	{
 		if (a->next->content > a->next->next->content)
 		{
-			ps_rrotate(a, 'a');
+			ps_rrotate(&a, 'a');
 			ps_swap(a, 'a');
 		}
 		else if (a->content > a->next->content)
@@ -46,18 +46,18 @@ void	for_3(t_llist *a)
 	else
 	{
 		if (a->content < a->next->content)
-			ps_rrotate(a, 'a');
+			ps_rrotate(&a, 'a');
 		else if (a->next->content < a->next->next->content)
-			ps_rotate(a, 'a');
+			ps_rotate(&a, 'a');
 		else
 		{
 			ps_swap(a, 'a');
-			ps_rrotate(a, 'a');
+			ps_rrotate(&a, 'a');
 		}
 	}
 }
 
-void	for_less_13(t_llist **a, t_llist **b, int i, int len_stat)
+void	for_less_13(t_llist **a, t_llist **b, int i, int len)
 {
 	int		tmp;
 	t_llist	*tmp_l;
@@ -68,12 +68,12 @@ void	for_less_13(t_llist **a, t_llist **b, int i, int len_stat)
 		if ((*a)->index == i)
 		{
 			tmp = (*a)->content;
-			if (i < len_stat / 2)
+			if (i < len / 2)
 				while (tmp != tmp_l->content)
-					ps_rotate(tmp_l, 'a');
+					ps_rotate(&tmp_l, 'a');
 			else
 				while (tmp != tmp_l->content)
-					ps_rrotate(tmp_l, 'a');
+					ps_rrotate(&tmp_l, 'a');
 			ps_push(b, &tmp_l, 'b');
 			break ;
 		}

@@ -12,10 +12,13 @@
 
 #include "push_swap.h"
 
-void	err_mes(char *s)
+void	err_mes(char *s, int condition)
 {
-	ft_printf("Error: %s\n", s);
-	exit(0);
+	if (condition)
+	{
+		ft_printf("Error: %s\n", s);
+		exit(0);
+	}
 }
 
 int	split_size(char **split)
@@ -40,4 +43,14 @@ void	split_free(char **split)
 	}
 	free(split);
 	split = NULL;
+}
+
+void	free_list(t_llist *list, int *args)
+{
+	while (list->next)
+	{
+		list = list->next;
+		free(list->prev);
+	}
+	free(args);
 }

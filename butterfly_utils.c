@@ -37,13 +37,16 @@ int	ft_log(int nb)
 
 int	lstsize(t_llist *b)
 {
-	int	i;
+	int		i;
+	t_llist	*tmp;
 
 	i = 0;
+	tmp = b;
 	while (b)
 	{
 		i++;
 		b = b->next;
 	}
+	b = tmp;
 	return (i);
 }
