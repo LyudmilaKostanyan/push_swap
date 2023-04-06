@@ -41,7 +41,7 @@ void	push_a(t_llist **b, int len, int *args, int i)
 	raise(j, max, b);
 }
 
-void	butterfly(t_llist *a, t_llist *b, int len, int *args)
+void	create_butterfly(t_llist **a, t_llist **b, int len)
 {
 	int	opt;
 	int	i;
@@ -50,20 +50,27 @@ void	butterfly(t_llist *a, t_llist *b, int len, int *args)
 	opt = ft_sqrt(len) + ft_log(len) - 1;
 	while (i < len)
 	{
-		if (a->index <= i)
+		if ((*a)->index <= i)
 		{
-			ps_push(&b, &a, 'b');
-			ps_rotate(&b, 'b');
+			ps_push(b, a, 'b');
+			ps_rotate(b, 'b');
 			i++;
 		}
-		else if (a->index <= i + opt)
+		else if ((*a)->index <= i + opt)
 		{
-			ps_push(&b, &a, 'b');
+			ps_push(b, a, 'b');
 			i++;
 		}
 		else
-			ps_rotate(&a, 'a');
+			ps_rotate(a, 'a');
 	}
+}
+
+void	butterfly(t_llist *a, t_llist *b, int len, int *args)
+{
+	int	i;
+
+	create_butterfly(&a, &b, len);
 	i = len - 1;
 	while (b)
 	{

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 t_llist	*list_creat(int *args, int len)
 {
@@ -54,7 +54,7 @@ void	indexing(t_llist *a, int *args, int len)
 	}
 }
 
-void	ps_swap(t_llist *list, char c)
+void	ps_swap(t_llist *list)
 {
 	int	tmp;
 	int	tmp_i;
@@ -67,22 +67,17 @@ void	ps_swap(t_llist *list, char c)
 	list->index = list->next->index;
 	list->next->content = tmp;
 	list->next->index = tmp_i;
-	if (c == 'a')
-		ft_printf("sa\n");
-	else if (c == 'b')
-		ft_printf("sb\n");
 }
 
 void	ss(t_llist *a, t_llist *b)
 {
 	if (!a || !b)
 		return ;
-	ps_swap(a, 0);
-	ps_swap(b, 0);
-	ft_printf("ss\n");
+	ps_swap(a);
+	ps_swap(b);
 }
 
-void	ps_push(t_llist **in, t_llist **out, char c)
+void	ps_push(t_llist **in, t_llist **out)
 {
 	t_llist	*tmp;
 
@@ -101,8 +96,4 @@ void	ps_push(t_llist **in, t_llist **out, char c)
 		tmp->prev = NULL;
 	*in = *out;
 	*out = tmp;
-	if (c == 'a')
-		ft_printf("pa\n");
-	else if (c == 'b')
-		ft_printf("pb\n");
 }

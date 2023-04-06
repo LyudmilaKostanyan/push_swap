@@ -1,9 +1,10 @@
 NAME = push_swap
+NAME_BONUS = checker
 CC = cc
-FLAGS = -c -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 IFLAGS = -I./libft -I./ft_printf
 LFLAGS = -L./libft -lft -L./ft_printf -lftprintf
-FILES = main.c \
+FILES = push_swap.c \
 		parse.c \
 		parse_utils.c \
 		merge.c \
@@ -13,28 +14,45 @@ FILES = main.c \
 		butterfly.c \
 		butterfly_utils.c
 
+FILES_BONUS = bonus/checker.c \
+				bonus/get_next_line_bonus.c \
+				bonus/get_next_line_utils_bonus.c \
+				bonus/parse.c \
+				bonus/parse_utils.c \
+				bonus/rotates.c \
+				bonus/for_list.c
+
 OBJS = $(FILES:.c=.o)
 
-%.o: %.c
-	$(CC) $(FLAGS) $(IFLAGS) $< -o $@
+OBJS_BONUS = $(FILES_BONUS:.c=.o)
+
+# TO_BUILD = $(if $(filter bonus, $(MAKECMDGOALS)), $(OBJS_BONUS), $(OBJS))
+
+%.o: %.c Makefile
+	$(CC) $(FLAGS) $(IFLAGS) -c $< -o $@
 
 all: lib ftprintf $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LFLAGS) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
+
+$(NAME_BONUS): $(OBJS_BONUS)
+	$(CC) $(FLAGS) $(OBJS_BONUS) $(LFLAGS) -o $(NAME_BONUS)
 
 lib:
-	cd libft && make
+	make -C libft
 
 ftprintf:
-	cd ft_printf && make
+	make -C ft_printf
+
+bonus : lib ftprintf $(NAME_BONUS)
 
 clean:
-	rm -f ./*.o libft/*.o ft_printf/*.o
+	rm -f ./*.o ./bonus/*.o libft/*.o ft_printf/*.o
 
 fclean: clean
 	rm -f $(NAME) libft/libft.a ft_printf/libftprintf.a
 
 re: fclean all
 
-.PHONY: all clean fclean re lib ftprintf
+.PHONY: all clean fclean re lib ftprintf bonus
