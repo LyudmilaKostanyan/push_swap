@@ -51,5 +51,6 @@ int	main(int argc, char **argv)
 	indexing(a, args, len);
 	choose_way(&a, &b, args, len);
 	free_list(&a, args);
+	system("leaks push_swap");
 	return (0);
 }

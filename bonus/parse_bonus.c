@@ -77,6 +77,8 @@ int	*stoi(char *s, int *len)
 			&& s[i] != '\n' && s[i] != ' ' && !ft_isdigit(s[i]));
 		if (s[i] == '\t' || s[i] == '\n')
 			s[i] = ' ';
+		err_mes("+/- in wrong space", (s[i] == '+' || s[i] == '-')
+			&& i != 0 && ft_isdigit(s[i - 1]));
 	}
 	split = ft_split(s, ' ');
 	free(s);

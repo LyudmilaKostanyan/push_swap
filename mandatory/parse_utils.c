@@ -52,8 +52,6 @@ void	free_list(t_llist **list, int *args)
 		(*list) = (*list)->next;
 		free((*list)->prev);
 	}
-	free((*list)->prev);
 	free(*list);
-	free(args);
 	free(args);
 }
