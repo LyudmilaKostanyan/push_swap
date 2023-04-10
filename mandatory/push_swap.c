@@ -6,7 +6,7 @@
 /*   By: lykostan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 17:17:51 by lykostan          #+#    #+#             */
-/*   Updated: 2023/03/31 17:17:52 by lykostan         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:52:02 by lykostan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ int	main(int argc, char **argv)
 	indexing(a, args, len);
 	choose_way(&a, &b, args, len);
 	free_list(&a, args);
-	system("leaks push_swap");
 	return (0);
 }
