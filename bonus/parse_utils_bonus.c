@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 void	err_mes(char *s, int condition)
 {
@@ -45,12 +45,34 @@ void	split_free(char **split)
 	split = NULL;
 }
 
-void	free_list(t_llist *list, int *args)
+void	free_list(t_llist **list, int *args)
 {
-	while (list->next)
+	if (!*list)
+		return ;
+	while ((*list)->next)
 	{
-		list = list->next;
-		free(list->prev);
+		(*list) = (*list)->next;
+		free((*list)->prev);
 	}
+	free(*list);
 	free(args);
+}
+
+int	check(t_llist *a)
+{
+	t_llist	*tmp;
+
+	tmp = a;
+	a = a->next;
+	while (a)
+	{
+		if (a->content < a->prev->content)
+		{
+			a = tmp;
+			return (0);
+		}
+		a = a->next;
+	}
+	a = tmp;
+	return (1);
 }

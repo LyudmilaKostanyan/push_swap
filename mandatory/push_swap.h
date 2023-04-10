@@ -31,6 +31,17 @@ typedef struct s_llist
 	struct s_llist	*prev;
 }	t_llist;
 
+typedef struct s_merg_vars
+{
+	int	i;
+	int	j;
+	int	k;
+	int	*l;
+	int	*r;
+	int	l_len;
+	int	r_len;
+}	t_merg_vars;
+
 int		*parse(int argc, char **argv, int *len);
 void	err_mes(char *s, int condition);
 int		split_size(char **split);
@@ -47,15 +58,15 @@ void	ps_rotate(t_llist **list, char c);
 void	rr(t_llist **a, t_llist **b);
 void	ps_rrotate(t_llist **list, char c);
 void	rrr(t_llist **a, t_llist **b);
-void	for_3(t_llist *a);
+void	for_3(t_llist **a);
 void	for_less_13(t_llist **a, t_llist **b, int i, int len_stat);
-void	less_13(t_llist *a, t_llist *b, int len);
+void	less_13(t_llist **a, t_llist **b, int len);
 int		ft_sqrt(int nb);
 int		ft_log(int nb);
 int		lstsize(t_llist *b);
 void	raise(int i, int max, t_llist **b);
 void	push_a(t_llist **b, int len, int *args, int i);
-void	butterfly(t_llist *a, t_llist *b, int len, int *args);
-void	free_list(t_llist *list, int *args);
+void	butterfly(t_llist **a, t_llist **b, int len, int *args);
+void	free_list(t_llist **list, int *args);
 
 #endif

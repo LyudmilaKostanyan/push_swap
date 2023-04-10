@@ -66,15 +66,15 @@ void	create_butterfly(t_llist **a, t_llist **b, int len)
 	}
 }
 
-void	butterfly(t_llist *a, t_llist *b, int len, int *args)
+void	butterfly(t_llist **a, t_llist **b, int len, int *args)
 {
 	int	i;
 
-	create_butterfly(&a, &b, len);
+	create_butterfly(a, b, len);
 	i = len - 1;
-	while (b)
+	while (*b)
 	{
-		push_a(&b, len, args, i--);
-		ps_push(&a, &b, 'a');
+		push_a(b, len, args, i--);
+		ps_push(a, b, 'a');
 	}
 }

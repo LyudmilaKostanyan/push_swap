@@ -31,28 +31,28 @@ int	check(t_llist *a)
 	return (1);
 }
 
-void	for_3(t_llist *a)
+void	for_3(t_llist **a)
 {
-	if (a->content < a->next->next->content)
+	if ((*a)->content < (*a)->next->next->content)
 	{
-		if (a->next->content > a->next->next->content)
+		if ((*a)->next->content > (*a)->next->next->content)
 		{
-			ps_rrotate(&a, 'a');
-			ps_swap(a, 'a');
+			ps_rrotate(a, 'a');
+			ps_swap(*a, 'a');
 		}
-		else if (a->content > a->next->content)
-			ps_swap(a, 'a');
+		else if ((*a)->content > (*a)->next->content)
+			ps_swap(*a, 'a');
 	}
 	else
 	{
-		if (a->content < a->next->content)
-			ps_rrotate(&a, 'a');
-		else if (a->next->content < a->next->next->content)
-			ps_rotate(&a, 'a');
+		if ((*a)->content < (*a)->next->content)
+			ps_rrotate(a, 'a');
+		else if ((*a)->next->content < (*a)->next->next->content)
+			ps_rotate(a, 'a');
 		else
 		{
-			ps_swap(a, 'a');
-			ps_rrotate(&a, 'a');
+			ps_swap(*a, 'a');
+			ps_rrotate(a, 'a');
 		}
 	}
 }
@@ -82,7 +82,7 @@ void	for_less_13(t_llist **a, t_llist **b, int i, int len)
 	*a = tmp_l;
 }
 
-void	less_13(t_llist *a, t_llist *b, int len)
+void	less_13(t_llist **a, t_llist **b, int len)
 {
 	int		i;
 	int		len_stat;
@@ -91,14 +91,14 @@ void	less_13(t_llist *a, t_llist *b, int len)
 	len_stat = len;
 	while (len > 3)
 	{
-		for_less_13(&a, &b, i, len_stat);
+		for_less_13(a, b, i, len_stat);
 		len--;
 		i++;
 	}
 	for_3(a);
 	while (len != len_stat)
 	{
-		ps_push(&a, &b, 'a');
+		ps_push(a, b, 'a');
 		len++;
 	}
 }

@@ -12,14 +12,14 @@
 
 #include "push_swap.h"
 
-void	choose_way(t_llist *a, t_llist *b, int *args, int len)
+void	choose_way(t_llist **a, t_llist **b, int *args, int len)
 {
-	if (len < 2 || check(a))
+	if (len < 2 || check(*a))
 		return ;
 	else if (len == 2)
 	{
-		if (a->content > a->next->content)
-			ps_swap(a, 'a');
+		if ((*a)->content > (*a)->next->content)
+			ps_swap(*a, 'a');
 	}
 	else if (len == 3)
 		for_3(a);
@@ -36,15 +36,20 @@ int	main(int argc, char **argv)
 	int		*args;
 	int		len;
 
+	b = NULL;
 	if (argc < 2)
 		return (0);
 	len = 0;
 	args = parse(argc, argv, &len);
 	a = list_creat(args, len);
-	b = NULL;
+	if (!len)
+	{
+		free(args);
+		return (0);
+	}
 	merge(args, 0, len - 1);
 	indexing(a, args, len);
-	choose_way(a, b, args, len);
-	free_list(a, args);
+	choose_way(&a, &b, args, len);
+	free_list(&a, args);
 	return (0);
 }

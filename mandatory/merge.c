@@ -12,31 +12,42 @@
 
 #include "push_swap.h"
 
+void	merge_fill_arr(int *args, t_merg_vars vars)
+{
+	vars.i = 0;
+	vars.j = 0;
+	while (vars.i < vars.l_len && vars.j < vars.r_len)
+	{
+		if (vars.l[vars.i] < vars.r[vars.j])
+			args[vars.k++] = vars.l[vars.i++];
+		else
+			args[vars.k++] = vars.r[vars.j++];
+	}
+	while (vars.i < vars.l_len)
+		args[vars.k++] = vars.l[vars.i++];
+	while (vars.j < vars.r_len)
+		args[vars.k++] = vars.r[vars.j++];
+	free(vars.l);
+	free(vars.r);
+}
+
 void	merge_sorted(int *args, int start, int mid, int end)
 {
-	int	i;
-	int	j;
-	int	k;
-	int	*tmp;
+	t_merg_vars	vars;
 
-	tmp = (int *)malloc(sizeof(int) * end + 1);
-	err_mes("Malloc error", tmp == NULL);
-	i = start;
-	k = start;
-	j = mid + 1;
-	while (i <= mid && j <= end)
-		if (args[i] < args[j])
-			tmp[k++] = args[i++];
-	else
-		tmp[k++] = args[j++];
-	while (i <= mid)
-		tmp[k++] = args[i++];
-	while (j <= end)
-		tmp[k++] = args[j++];
-	k = start - 1;
-	while (++k <= end)
-		args[k] = tmp[k];
-	free(tmp);
+	vars.l_len = mid - start + 1;
+	vars.r_len = end - mid;
+	vars.l = (int *)malloc(sizeof(int) * vars.l_len);
+	vars.r = (int *)malloc(sizeof(int) * vars.r_len);
+	vars.i = -1;
+	vars.j = -1;
+	vars.k = start;
+	while (++vars.i < vars.l_len)
+		vars.l[vars.i] = args[start + vars.i];
+	while (++vars.j < vars.r_len)
+		vars.r[vars.j] = args[mid + vars.j + 1];
+	vars.k = start;
+	merge_fill_arr(args, vars);
 }
 
 void	merge(int *args, int start, int end)

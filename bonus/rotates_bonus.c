@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
-void	ps_rotate(t_llist **list, char c)
+void	ps_rotate(t_llist **list)
 {
 	t_llist	*tmp;
 	t_llist	*head;
@@ -28,22 +28,15 @@ void	ps_rotate(t_llist **list, char c)
 	(*list)->prev = tmp;
 	tmp->next = *list;
 	*list = head;
-	if (c == 'a')
-		ft_printf("ra\n");
-	else if (c == 'b')
-		ft_printf("rb\n");
 }
 
 void	rr(t_llist **a, t_llist **b)
 {
-	if (!*a || !*b)
-		return ;
-	ps_rotate(a, 0);
-	ps_rotate(b, 0);
-	ft_printf("rr\n");
+	ps_rotate(a);
+	ps_rotate(b);
 }
 
-void	ps_rrotate(t_llist **list, char c)
+void	ps_rrotate(t_llist **list)
 {
 	t_llist	*tmp;
 
@@ -57,17 +50,10 @@ void	ps_rrotate(t_llist **list, char c)
 	tmp->next = *list;
 	tmp->prev = NULL;
 	*list = tmp;
-	if (c == 'a')
-		ft_printf("rra\n");
-	else if (c == 'b')
-		ft_printf("rrb\n");
 }
 
 void	rrr(t_llist **a, t_llist **b)
 {
-	if (!*a || !*b)
-		return ;
-	ps_rrotate(a, 0);
-	ps_rrotate(b, 0);
-	ft_printf("rrr\n");
+	ps_rrotate(a);
+	ps_rrotate(b);
 }

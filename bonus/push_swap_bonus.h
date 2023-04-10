@@ -44,7 +44,7 @@ void	ps_rotate(t_llist **list);
 void	rr(t_llist **a, t_llist **b);
 void	ps_rrotate(t_llist **list);
 void	rrr(t_llist **a, t_llist **b);
-void	free_list(t_llist *list, int *args);
+void	free_list(t_llist **list, int *args);
 char	*get_next_line(int fd);
 int		ft_strchr_gnl(char *str, int c);
 char	*ft_strdup_gnl(char *s, int start, int j);
