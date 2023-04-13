@@ -59,7 +59,7 @@ void	ps_swap(t_llist *list)
 	int	tmp;
 	int	tmp_i;
 
-	if (!list)
+	if (!list || !list->next)
 		return ;
 	tmp = list->content;
 	tmp_i = list->index;
