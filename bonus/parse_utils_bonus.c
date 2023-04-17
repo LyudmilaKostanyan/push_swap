@@ -12,11 +12,11 @@
 
 #include "push_swap_bonus.h"
 
-void	err_mes(char *s, int condition)
+void	err_mes(int condition)
 {
 	if (condition)
 	{
-		ft_printf("Error: %s\n", s);
+		write(2, "Error\n", 6);
 		exit(0);
 	}
 }

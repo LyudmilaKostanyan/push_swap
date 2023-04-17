@@ -20,7 +20,7 @@ t_llist	*list_creat(int *args, int len)
 
 	i = -1;
 	head = malloc(sizeof(t_llist));
-	err_mes("Malloc error", head == NULL);
+	err_mes(head == NULL);
 	list = head;
 	while (++i < len)
 	{
@@ -32,7 +32,7 @@ t_llist	*list_creat(int *args, int len)
 		else
 		{
 			head->next = malloc(sizeof(t_llist));
-			err_mes("Malloc error", head->next == NULL);
+			err_mes(head->next == NULL);
 			head->next->prev = head;
 		}
 		head = head->next;

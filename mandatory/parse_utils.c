@@ -16,7 +16,9 @@ void	err_mes(char *s, int condition)
 {
 	if (condition)
 	{
-		ft_printf("Error: %s\n", s);
+		write(2, "Error: ", 7);
+		write(2, s, ft_strlen(s));
+		write(2, "\n", 1);
 		exit(0);
 	}
 }

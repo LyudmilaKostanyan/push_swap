@@ -30,7 +30,7 @@ int long	num_creat(const char *str, long *k)
 	}
 	while (str[i] == 48)
 		i++;
-	err_mes("Too long arg", ft_strlen(str + i) > 10);
+	err_mes(ft_strlen(str + i) > 10);
 	while (str[i] >= 48 && str[i] <= 57)
 	{
 		*k = *k * 10 + (str[i] - 48);
@@ -46,12 +46,12 @@ int	*ft_atol(char **split, int *len)
 	int		*args;
 
 	args = (int *)malloc(sizeof(int) * split_size(split));
-	err_mes("Malloc error", args == NULL);
+	err_mes(args == NULL);
 	while (*split)
 	{
 		k = 0;
 		m = num_creat(*split, &k);
-		err_mes("Too long arg", (k > 2147483647 && m == 0)
+		err_mes((k > 2147483647 && m == 0)
 			|| (k > 2147483648 && m != 0));
 		if (m != 0)
 			k = -k;
@@ -73,16 +73,16 @@ int	*stoi(char *s, int *len)
 	s_len = ft_strlen(s);
 	while (++i < s_len)
 	{
-		err_mes("Other simbols", s[i] != '+' && s[i] != '-' && s[i] != '\t'
+		err_mes(s[i] != '+' && s[i] != '-' && s[i] != '\t'
 			&& s[i] != '\n' && s[i] != ' ' && !ft_isdigit(s[i]));
 		if (s[i] == '\t' || s[i] == '\n')
 			s[i] = ' ';
-		err_mes("+/- in wrong space", (s[i] == '+' || s[i] == '-')
+		err_mes((s[i] == '+' || s[i] == '-')
 			&& i != 0 && ft_isdigit(s[i - 1]));
 	}
 	split = ft_split(s, ' ');
 	free(s);
-	err_mes("Malloc error", split == NULL);
+	err_mes(split == NULL);
 	args = ft_atol(split, len);
 	split_free(split);
 	return (args);
@@ -123,7 +123,7 @@ int	*parse(int argc, char **argv, int *len)
 	{
 		j = -1;
 		while (++j < *len)
-			err_mes("Identical numbers in args", args[i] == args[j] && i != j);
+			err_mes(args[i] == args[j] && i != j);
 	}
 	return (args);
 }

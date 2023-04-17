@@ -51,16 +51,12 @@ void	sort(t_llist **a, t_llist **b)
 			free(s);
 			break ;
 		}
-		if (ft_strncmp(s, "sa\n", len) && ft_strncmp(s, "sb\n", len)
+		err_mes(ft_strncmp(s, "sa\n", len) && ft_strncmp(s, "sb\n", len)
 			&& ft_strncmp(s, "ss\n", len) && ft_strncmp(s, "pa\n", len)
 			&& ft_strncmp(s, "pb\n", len) && ft_strncmp(s, "ra\n", len)
 			&& ft_strncmp(s, "rb\n", len) && ft_strncmp(s, "rr\n", len)
 			&& ft_strncmp(s, "rra\n", len) && ft_strncmp(s, "rrb\n", len)
-			&& ft_strncmp(s, "rrr\n", len))
-		{
-			write(1, "Error\n", 6);
-			exit(0);
-		}
+			&& ft_strncmp(s, "rrr\n", len));
 		len = ft_strlen(s);
 		check_comand(a, b, s, len);
 		free(s);

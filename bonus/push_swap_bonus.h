@@ -32,7 +32,7 @@ typedef struct s_llist
 }	t_llist;
 
 int		*parse(int argc, char **argv, int *len);
-void	err_mes(char *s, int condition);
+void	err_mes(int condition);
 int		split_size(char **split);
 void	split_free(char **split);
 int		check(t_llist *a);
